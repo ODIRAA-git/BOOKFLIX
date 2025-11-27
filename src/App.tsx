@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { supabase } from "./lib/supabase";
 import type { User } from "@supabase/supabase-js";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import Footer from "./components/Footer";
 import Book1 from "./assets/MysteryAndThriller/Book1.jpg";
@@ -681,7 +681,7 @@ function App() {
                   <button
                     className="action-button primary"
                     onClick={() => addToWishlist(selectedBook)}
-                    disabled={user && isInWishlist(selectedBook.title)}
+                    disabled={!!(user && isInWishlist(selectedBook.title))}
                   >
                     {user && isInWishlist(selectedBook.title)
                       ? "Already in Wishlist"

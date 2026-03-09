@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Accounts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        
+        .nav {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav a {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .nav a:hover {
+            background: #5568d3;
+        }
+        
+        .nav a.active {
+            background: #764ba2;
+        }
+        
+        .accounts-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .account-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .account-card.savings {
+            border-left-color: #28a745;
+        }
+        
+        .account-card.investment {
+            border-left-color: #ffc107;
+        }
+        
+        .account-details h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .account-details p {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .account-number {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .account-balance {
+            text-align: right;
+        }
+        
+        .balance-amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+        
+        .balance-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .account-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 SecureBank Dashboard</h1>
+        </div>
+
+        <div class="nav">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/accounts" class="active">My Accounts</a>
+            <a href="/transactions">Transactions</a>
+            <a href="/transfer">Transfer Money</a>
+        </div>
+
+        <div class="accounts-grid">
+            <div class="account-card" 
+                 th:each="account : ${accounts}"
+                 th:classappend="${account.accountType.toLowerCase().contains('savings') ? 'savings' : (account.accountType.toLowerCase().contains('investment') ? 'investment' : '')}">
+                <div class="account-details">
+                    <h3 th:text="${account.accountType}">Account Type</h3>
+                    <p><strong>Account Holder:</strong> <span th:text="${account.accountHolder}"></span></p>
+                    <p><strong>Currency:</strong> <span th:text="${account.currency}"></span></p>
+                    <div class="account-number" th:text="${account.accountNumber}">Account Number</div>
+                    <div class="account-actions">
+                        <a href="/transactions" class="btn btn-primary">View Transactions</a>
+                        <a href="/transfer" class="btn btn-secondary">Transfer</a>
+                    </div>
+                </div>
+                <div class="account-balance">
+                    <div class="balance-amount">€<span th:text="${#numbers.formatDecimal(account.balance, 1, 2)}"></span></div>
+                    <div class="balance-label">Available Balance</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

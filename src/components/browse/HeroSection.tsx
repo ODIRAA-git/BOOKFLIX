@@ -1,4 +1,4 @@
-import Wallpaper from "../../assets/Wallpaper.jpg";
+import Wallpaper from "../../assets/Wallpaper.webp";
 
 interface HeroSectionProps {
   userName: string;

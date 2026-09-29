@@ -1,62 +1,62 @@
 import type { Book, BookRow } from "../types/book";
 
-import Book1 from "../assets/MysteryAndThriller/Book1.jpg";
+import Book1 from "../assets/MysteryAndThriller/Book1.webp";
 
 // Fiction book covers
-import FictionBeautifulLies from "../assets/Fiction/BeautifulLies.jpg";
+import FictionBeautifulLies from "../assets/Fiction/BeautifulLies.webp";
 import FictionBloodMark from "../assets/Fiction/BloodMark.webp";
 import FictionDeadEyes from "../assets/Fiction/DeadEyes.webp";
-import FictionGermanGirl from "../assets/Fiction/GermanGirl.jpg";
-import FictionMaltese from "../assets/Fiction/Maltese.jpg";
-import FictionOcean from "../assets/Fiction/Ocean.jpg";
-import FictionRelic from "../assets/Fiction/Relic.png";
-import FictionSoul from "../assets/Fiction/Soul.jpg";
+import FictionGermanGirl from "../assets/Fiction/GermanGirl.webp";
+import FictionMaltese from "../assets/Fiction/Maltese.webp";
+import FictionOcean from "../assets/Fiction/Ocean.webp";
+import FictionRelic from "../assets/Fiction/Relic.webp";
+import FictionSoul from "../assets/Fiction/Soul.webp";
 
 // Horror book covers
-import HorrorColdDresses from "../assets/Horror/ColdDresses.jpg";
+import HorrorColdDresses from "../assets/Horror/ColdDresses.webp";
 import Horror1 from "../assets/Horror/Horror1.webp";
-import HorrorNightmare from "../assets/Horror/Nightmare.jpg";
-import HorrorTheGhost from "../assets/Horror/TheGhost.jpg";
-import HorrorTheNight from "../assets/Horror/TheNight.jpg";
-import HorrorVirginia from "../assets/Horror/Virginia.jpg";
+import HorrorNightmare from "../assets/Horror/Nightmare.webp";
+import HorrorTheGhost from "../assets/Horror/TheGhost.webp";
+import HorrorTheNight from "../assets/Horror/TheNight.webp";
+import HorrorVirginia from "../assets/Horror/Virginia.webp";
 import HorrorWhenDarkness from "../assets/Horror/WhenDarkness.webp";
 
 // Romance book covers
-import RomanceDukeBaby from "../assets/Romance/DukeBaby.jpg";
-import RomanceFirstLove from "../assets/Romance/FirstLove.jpg";
-import RomanceFirstLove2 from "../assets/Romance/FirstLove2.jpg";
-import RomanceLegacyLove from "../assets/Romance/LegacyLove.jpg";
+import RomanceDukeBaby from "../assets/Romance/DukeBaby.webp";
+import RomanceFirstLove from "../assets/Romance/FirstLove.webp";
+import RomanceFirstLove2 from "../assets/Romance/FirstLove2.webp";
+import RomanceLegacyLove from "../assets/Romance/LegacyLove.webp";
 import RomanceSilverFate from "../assets/Romance/SilverFate.avif";
-import RomanceSleepingWith from "../assets/Romance/SleepingWith.jpeg";
-import RomanceSoulmate from "../assets/Romance/Soulmate.jpg";
+import RomanceSleepingWith from "../assets/Romance/SleepingWith.webp";
+import RomanceSoulmate from "../assets/Romance/Soulmate.webp";
 
 // Mystery & Thriller book covers
-import MysteryGoodSister from "../assets/MysteryAndThriller/GoodSister.jpg";
-import MysteryHarryPotter from "../assets/MysteryAndThriller/HarryPotter.png";
-import MysteryPastRising from "../assets/MysteryAndThriller/PastRising.jpg";
-import MysteryPineHouse from "../assets/MysteryAndThriller/PineHouse.png";
+import MysteryGoodSister from "../assets/MysteryAndThriller/GoodSister.webp";
+import MysteryHarryPotter from "../assets/MysteryAndThriller/HarryPotter.webp";
+import MysteryPastRising from "../assets/MysteryAndThriller/PastRising.webp";
+import MysteryPineHouse from "../assets/MysteryAndThriller/PineHouse.webp";
 import MysterySpace from "../assets/MysteryAndThriller/Space.webp";
 import MysteryTakeMeBack from "../assets/MysteryAndThriller/TakeMeBack.webp";
-import MysteryWeFall from "../assets/MysteryAndThriller/WeFall.png";
+import MysteryWeFall from "../assets/MysteryAndThriller/WeFall.webp";
 
 // Fantasy book covers
-import FantasyEmbers from "../assets/Fantasy/Embers.jpg";
+import FantasyEmbers from "../assets/Fantasy/Embers.webp";
 import FantasyEternityGate from "../assets/Fantasy/EternityGate.webp";
-import FantasyHarryPotter from "../assets/Fantasy/HarryPotter.png";
-import FantasyHiddenInFrost from "../assets/Fantasy/HiddenInFrost.jpg";
-import FantasyPrinceAndWitch from "../assets/Fantasy/PrinceAndWitch.jpg";
+import FantasyHarryPotter from "../assets/Fantasy/HarryPotter.webp";
+import FantasyHiddenInFrost from "../assets/Fantasy/HiddenInFrost.webp";
+import FantasyPrinceAndWitch from "../assets/Fantasy/PrinceAndWitch.webp";
 import FantasySilverPromise from "../assets/Fantasy/SilverPromise.webp";
-import FantasyTempest from "../assets/Fantasy/Tempest.jpeg";
+import FantasyTempest from "../assets/Fantasy/Tempest.webp";
 
 // Poetry book covers
-import PoetryBrute from "../assets/Poetry/Brute.jpg";
-import PoetryExpat from "../assets/Poetry/Expat.jpeg";
+import PoetryBrute from "../assets/Poetry/Brute.webp";
+import PoetryExpat from "../assets/Poetry/Expat.webp";
 import PoetryFoster from "../assets/Poetry/Foster.jpg";
-import PoetryMotherhood from "../assets/Poetry/Motherhood.jpg";
-import PoetryPetal from "../assets/Poetry/Petal.jpg";
-import PoetryRisingTide from "../assets/Poetry/RisingTide.jpg";
+import PoetryMotherhood from "../assets/Poetry/Motherhood.webp";
+import PoetryPetal from "../assets/Poetry/Petal.webp";
+import PoetryRisingTide from "../assets/Poetry/RisingTide.webp";
 import PoetryTears from "../assets/Poetry/Tears.jpg";
-import PoetryWolfWider from "../assets/Poetry/WolfWider.jpg";
+import PoetryWolfWider from "../assets/Poetry/WolfWider.webp";
 
 // Helper function to create book objects with random ratings
 const createBook = (image: string, title: string, prologue: string): Book => ({

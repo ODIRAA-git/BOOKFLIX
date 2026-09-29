@@ -11,9 +11,10 @@ interface SignupModalProps {
   ) => Promise<{ error: AuthError | null }>;
   onClose: () => void;
   onSwitchToLogin: () => void;
+  defaultEmail?: string;
 }
 
-function SignupModal({ onSignUp, onClose, onSwitchToLogin }: SignupModalProps) {
+function SignupModal({ onSignUp, onClose, onSwitchToLogin, defaultEmail }: SignupModalProps) {
   const [loading, setLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -69,6 +70,7 @@ function SignupModal({ onSignUp, onClose, onSwitchToLogin }: SignupModalProps) {
             id="signup-email"
             name="email"
             placeholder="Enter your email"
+            defaultValue={defaultEmail}
             required
           />
         </div>

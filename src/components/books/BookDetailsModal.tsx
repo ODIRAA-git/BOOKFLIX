@@ -5,7 +5,6 @@ interface BookDetailsModalProps {
   book: Book;
   inWishlist: boolean;
   onAddToWishlist: (book: Book) => void;
-  onStartReading: () => void;
   onClose: () => void;
 }
 
@@ -13,7 +12,6 @@ function BookDetailsModal({
   book,
   inWishlist,
   onAddToWishlist,
-  onStartReading,
   onClose,
 }: BookDetailsModalProps) {
   return (
@@ -43,8 +41,8 @@ function BookDetailsModal({
             >
               {inWishlist ? "Already in Wishlist" : "Add to Wishlist"}
             </button>
-            <button className="action-button secondary" onClick={onStartReading}>
-              Start Reading
+            <button className="action-button secondary" onClick={onClose}>
+              Keep Browsing
             </button>
           </div>
         </div>

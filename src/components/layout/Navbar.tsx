@@ -1,7 +1,7 @@
 import type { User } from "@supabase/supabase-js";
 
 interface NavBarProps {
-  user: User | null;
+  user: User;
   isDarkMode: boolean;
   showDropdown: boolean;
   showSearch: boolean;
@@ -13,8 +13,6 @@ interface NavBarProps {
   onToggleSearch: () => void;
   onSearchChange: (query: string) => void;
   onGenreSearch: (genre: string) => void;
-  onOpenLogin: () => void;
-  onOpenSignup: () => void;
   onOpenProfile: () => void;
   onLogout: () => void;
   onBrowseGenres: () => void;
@@ -33,20 +31,10 @@ function NavBar({
   onToggleSearch,
   onSearchChange,
   onGenreSearch,
-  onOpenLogin,
-  onOpenSignup,
   onOpenProfile,
   onLogout,
   onBrowseGenres,
 }: NavBarProps) {
-  const handleWishlistClick = () => {
-    if (user) {
-      onOpenProfile();
-    } else {
-      alert("Please log in to view your wishlist");
-      onOpenLogin();
-    }
-  };
 
   return (
     <>
@@ -54,16 +42,16 @@ function NavBar({
       <nav className="navbar">
         <div className="nav-left">
           <div className="logo">Bookflix</div>
-          <a href="#home" className="nav-link active">
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="nav-link active"
+          >
             Home
-          </a>
+          </button>
           <button onClick={onBrowseGenres} className="nav-link">
             Genres
           </button>
-          <a href="#authors" className="nav-link">
-            Authors
-          </a>
-          <button onClick={handleWishlistClick} className="nav-link">
+          <button onClick={onOpenProfile} className="nav-link">
             My Wishlist
           </button>
         </div>
@@ -84,31 +72,19 @@ function NavBar({
             </button>
             {showDropdown && (
               <div className="dropdown-menu">
-                {user ? (
-                  <>
-                    <button
-                      onClick={() => {
-                        onOpenProfile();
-                        onToggleDropdown();
-                      }}
-                      className="dropdown-item"
-                    >
-                      View Profile
-                    </button>
-                    <button onClick={onLogout} className="dropdown-item">
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button onClick={onOpenLogin} className="dropdown-item">
-                      Login
-                    </button>
-                    <button onClick={onOpenSignup} className="dropdown-item">
-                      Sign Up
-                    </button>
-                  </>
-                )}
+                <div className="dropdown-user-info">{user.email}</div>
+                <button
+                  onClick={() => {
+                    onOpenProfile();
+                    onToggleDropdown();
+                  }}
+                  className="dropdown-item"
+                >
+                  View Profile
+                </button>
+                <button onClick={onLogout} className="dropdown-item">
+                  Logout
+                </button>
               </div>
             )}
           </div>

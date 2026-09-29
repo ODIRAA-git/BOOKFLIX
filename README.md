@@ -4,10 +4,12 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 
 **Live demo: [bookfliix.netlify.app](https://bookfliix.netlify.app/)**
 
-> **Try it without signing up:** open the login dialog and click **Continue as Guest**, or log in with `demo@bookflix.com` / `book023`.
+> **Try it without signing up:** click **Try the demo account** on the homepage, or sign in with `demo@bookflix.com` / `book023`.
 
 ## Features
 
+- **Landing page**: a marketing page for visitors, with email sign-up, a genre showcase and FAQ; the library itself is only available once you're signed in
+- **Protected routes**: `/` is the landing page and `/browse` is the library, guarded by React Router based on the Supabase session
 - **Genre rows**: Fantasy, Fiction, Romance, Mystery & Thriller, Horror, Poetry, plus a Recommended row, shown as continuously scrolling carousels
 - **Book details**: cover, rating and prologue in a modal
 - **Authentication**: email/password sign-up and login via Supabase Auth, with a one-click guest login
@@ -20,7 +22,7 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 
 | Area      | Choice                                   |
 | --------- | ---------------------------------------- |
-| UI        | React 19, TypeScript                     |
+| UI        | React 19, TypeScript, React Router       |
 | Build     | Vite                                     |
 | Backend   | Supabase (Auth + Postgres)               |
 | Styling   | Plain CSS with light/dark theme classes  |
@@ -31,24 +33,28 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 ```
 src/
 ├── main.tsx                 # App entry point
-├── App.tsx                  # Root component
+├── App.tsx                  # Routes: / (landing) and /browse (signed-in only)
 ├── pages/
-│   └── HomePage.tsx         # Page layout and UI state (modals, search, dropdown)
+│   ├── LandingPage.tsx      # Marketing page for signed-out visitors
+│   └── BrowsePage.tsx       # The library: genre rows, book details, wishlist
+├── context/                 # AuthContext + AuthProvider (shared session state)
 ├── components/
-│   ├── common/Modal.tsx     # Reusable modal shell
+│   ├── routing/             # ProtectedRoute, PublicOnlyRoute
+│   ├── common/              # Modal, SplashScreen
+│   ├── landing/             # Landing page sections (hero, features, genres, FAQ…)
 │   ├── layout/              # Navbar, Footer
-│   ├── home/                # HeroSection, BookRow, BookCard
+│   ├── browse/              # HeroSection, BookRow, BookCard
 │   ├── auth/                # LoginModal, SignupModal
 │   ├── books/               # BookDetailsModal
 │   └── profile/             # ProfileModal (user info + wishlist)
 ├── hooks/
-│   ├── useAuth.ts           # Session tracking, sign up / in / out
+│   ├── useAuth.ts           # Access to the shared auth context
 │   ├── useWishlist.ts       # Wishlist fetch, add, remove (Supabase)
 │   └── useTheme.ts          # Dark/light mode with persistence
 ├── data/books.ts            # Book catalogue and genre rows
-├── lib/supabase.ts          # Supabase client
+├── lib/                     # Supabase client, demo account details
 ├── types/book.ts            # Shared TypeScript types
-├── styles/                  # Global and component styles
+├── styles/                  # Global, library and landing page styles
 └── assets/                  # Book covers, grouped by genre
 ```
 

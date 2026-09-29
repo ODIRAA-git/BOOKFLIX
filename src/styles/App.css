@@ -1443,3 +1443,33 @@ body.light-mode .footer-bottom-links .separator {
     text-align: center;
   }
 }
+
+/* Splash screen (shown while the session is checked) ----------------------- */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background-color: #0b1016;
+}
+
+.splash-logo {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #a855f7;
+  animation: splash-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes splash-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-logo {
+    animation: none;
+  }
+}

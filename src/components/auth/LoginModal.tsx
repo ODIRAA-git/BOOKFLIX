@@ -2,9 +2,7 @@ import { useRef, useState } from "react";
 import type { FormEvent } from "react";
 import type { AuthError } from "@supabase/supabase-js";
 import Modal from "../common/Modal";
-
-const DEMO_EMAIL = "demo@bookflix.com";
-const DEMO_PASSWORD = "book023";
+import { DEMO_EMAIL, DEMO_PASSWORD } from "../../lib/demoAccount";
 
 interface LoginModalProps {
   onSignIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;

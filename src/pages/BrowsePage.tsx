@@ -1,10 +1,9 @@
 import { useState } from "react";
+import type { User } from "@supabase/supabase-js";
 import NavBar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-import HeroSection from "../components/home/HeroSection";
-import BookRow from "../components/home/BookRow";
-import LoginModal from "../components/auth/LoginModal";
-import SignupModal from "../components/auth/SignupModal";
+import HeroSection from "../components/browse/HeroSection";
+import BookRow from "../components/browse/BookRow";
 import BookDetailsModal from "../components/books/BookDetailsModal";
 import ProfileModal from "../components/profile/ProfileModal";
 import { useAuth } from "../hooks/useAuth";
@@ -13,42 +12,20 @@ import { useTheme } from "../hooks/useTheme";
 import { bookRows, genres } from "../data/books";
 import type { Book } from "../types/book";
 
-type AuthModal = "login" | "signup" | null;
-
-function HomePage() {
-  const { user, signUp, signIn, signOut } = useAuth();
-  const { wishlist, isInWishlist, addToWishlist, removeFromWishlist } = useWishlist(user);
+function BrowsePage() {
+  const { user, signOut } = useAuth();
+  // ProtectedRoute guarantees a signed-in user on this page
+  const currentUser = user as User;
+  const { wishlist, isInWishlist, addToWishlist, removeFromWishlist } = useWishlist(currentUser);
   const { isDarkMode, toggleTheme } = useTheme();
 
-  const [authModal, setAuthModal] = useState<AuthModal>(null);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const openAuthModal = (modal: Exclude<AuthModal, null>) => {
-    setAuthModal(modal);
-    setShowDropdown(false);
-    setSelectedBook(null);
-  };
-  const openLogin = () => openAuthModal("login");
-  const openSignup = () => openAuthModal("signup");
-
-  const handleLogout = async () => {
-    await signOut();
-    setShowDropdown(false);
-    setShowProfile(false);
-  };
-
-  const handleAddToWishlist = (book: Book) => {
-    if (!user) {
-      alert("Please log in to add books to your wishlist");
-      openLogin();
-      return;
-    }
-    addToWishlist(book);
-  };
+  const firstName = (currentUser.user_metadata?.full_name as string | undefined)?.split(" ")[0] || "reader";
 
   const handleBrowseGenres = () => {
     document.getElementById("genres-section")?.scrollIntoView({ behavior: "smooth" });
@@ -83,7 +60,7 @@ function HomePage() {
   return (
     <div className="app">
       <NavBar
-        user={user}
+        user={currentUser}
         isDarkMode={isDarkMode}
         showDropdown={showDropdown}
         showSearch={showSearch}
@@ -95,14 +72,16 @@ function HomePage() {
         onToggleSearch={() => setShowSearch(!showSearch)}
         onSearchChange={setSearchQuery}
         onGenreSearch={handleGenreSearch}
-        onOpenLogin={openLogin}
-        onOpenSignup={openSignup}
         onOpenProfile={() => setShowProfile(true)}
-        onLogout={handleLogout}
+        onLogout={signOut}
         onBrowseGenres={handleBrowseGenres}
       />
 
-      <HeroSection onStartReading={openSignup} onBrowseGenres={handleBrowseGenres} />
+      <HeroSection
+        userName={firstName}
+        onBrowseGenres={handleBrowseGenres}
+        onOpenWishlist={() => setShowProfile(true)}
+      />
 
       <div className="content" id="genres-section">
         {bookRows.map((row) => (
@@ -110,35 +89,18 @@ function HomePage() {
         ))}
       </div>
 
-      {authModal === "signup" && (
-        <SignupModal
-          onSignUp={signUp}
-          onClose={() => setAuthModal(null)}
-          onSwitchToLogin={openLogin}
-        />
-      )}
-
-      {authModal === "login" && (
-        <LoginModal
-          onSignIn={signIn}
-          onClose={() => setAuthModal(null)}
-          onSwitchToSignup={openSignup}
-        />
-      )}
-
       {selectedBook && (
         <BookDetailsModal
           book={selectedBook}
           inWishlist={isInWishlist(selectedBook.title)}
-          onAddToWishlist={handleAddToWishlist}
-          onStartReading={openSignup}
+          onAddToWishlist={addToWishlist}
           onClose={() => setSelectedBook(null)}
         />
       )}
 
-      {showProfile && user && (
+      {showProfile && (
         <ProfileModal
-          user={user}
+          user={currentUser}
           wishlist={wishlist}
           onViewBook={setSelectedBook}
           onRemoveBook={removeFromWishlist}
@@ -151,4 +113,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default BrowsePage;

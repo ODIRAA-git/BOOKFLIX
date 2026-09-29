@@ -176,3 +176,8 @@ export const bookRows: BookRow[] = [
 ];
 
 export const genres = bookRows.map((row) => row.title);
+
+// Every genre shelf, without the mixed "Recommended" row
+export const genreRows = bookRows.filter((row) => row.title !== "Recommended Books");
+
+export const allBooks = genreRows.flatMap((row) => row.books);

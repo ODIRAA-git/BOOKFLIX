@@ -12,6 +12,7 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 - **Protected routes**: `/` is the landing page and `/browse` is the library, guarded by React Router based on the Supabase session
 - **Genre rows**: Fantasy, Fiction, Romance, Mystery & Thriller, Horror, Poetry, plus a Recommended row, shown as continuously scrolling carousels
 - **Book details**: cover, rating and prologue in a modal
+- **Book pages**: "Start Reading" opens `/book/:slug`, a reading view with the prologue, an end-of-preview notice and more books from the same genre
 - **Authentication**: email/password sign-up and login via Supabase Auth, with a one-click guest login
 - **Wishlist**: add and remove books; stored per user in a Supabase Postgres table
 - **Genre search**: search from the navbar, which jumps to and highlights the matching row
@@ -33,10 +34,11 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 ```
 src/
 ├── main.tsx                 # App entry point
-├── App.tsx                  # Routes: / (landing) and /browse (signed-in only)
+├── App.tsx                  # Routes: / (landing), /browse and /book/:slug (signed-in only)
 ├── pages/
 │   ├── LandingPage.tsx      # Marketing page for signed-out visitors
-│   └── BrowsePage.tsx       # The library: genre rows, book details, wishlist
+│   ├── BrowsePage.tsx       # The library: genre rows, book details, wishlist
+│   └── BookPage.tsx         # Reading view for a single book
 ├── context/                 # AuthContext + AuthProvider (shared session state)
 ├── components/
 │   ├── routing/             # ProtectedRoute, PublicOnlyRoute
@@ -46,6 +48,7 @@ src/
 │   ├── browse/              # HeroSection, BookRow, BookCard
 │   ├── auth/                # LoginModal, SignupModal
 │   ├── books/               # BookDetailsModal
+│   ├── reader/              # Book page sections (end-of-preview notice, more in genre)
 │   └── profile/             # ProfileModal (user info + wishlist)
 ├── hooks/
 │   ├── useAuth.ts           # Access to the shared auth context
@@ -54,7 +57,7 @@ src/
 ├── data/books.ts            # Book catalogue and genre rows
 ├── lib/                     # Supabase client, demo account details
 ├── types/book.ts            # Shared TypeScript types
-├── styles/                  # Global, library and landing page styles
+├── styles/                  # Global, library, landing and reader styles
 └── assets/                  # Book covers, grouped by genre
 ```
 

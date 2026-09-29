@@ -181,3 +181,18 @@ export const genres = bookRows.map((row) => row.title);
 export const genreRows = bookRows.filter((row) => row.title !== "Recommended Books");
 
 export const allBooks = genreRows.flatMap((row) => row.books);
+
+// URL-friendly id for a book, e.g. "The Duke's Secret Baby" -> "the-duke-s-secret-baby"
+export const toSlug = (title: string) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+export const findBookBySlug = (slug: string) => {
+  for (const row of genreRows) {
+    const book = row.books.find((item) => toSlug(item.title) === slug);
+    if (book) return { book, genre: row };
+  }
+  return null;
+};

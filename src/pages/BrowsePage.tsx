@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
 import NavBar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
@@ -9,11 +10,12 @@ import ProfileModal from "../components/profile/ProfileModal";
 import { useAuth } from "../hooks/useAuth";
 import { useWishlist } from "../hooks/useWishlist";
 import { useTheme } from "../hooks/useTheme";
-import { bookRows, genres } from "../data/books";
+import { bookRows, genres, toSlug } from "../data/books";
 import type { Book } from "../types/book";
 
 function BrowsePage() {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   // ProtectedRoute guarantees a signed-in user on this page
   const currentUser = user as User;
   const { wishlist, isInWishlist, addToWishlist, removeFromWishlist } = useWishlist(currentUser);
@@ -94,6 +96,7 @@ function BrowsePage() {
           book={selectedBook}
           inWishlist={isInWishlist(selectedBook.title)}
           onAddToWishlist={addToWishlist}
+          onStartReading={(book) => navigate(`/book/${toSlug(book.title)}`)}
           onClose={() => setSelectedBook(null)}
         />
       )}

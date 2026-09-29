@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/routing/ProtectedRoute";
 import PublicOnlyRoute from "./components/routing/PublicOnlyRoute";
 import LandingPage from "./pages/LandingPage";
 import BrowsePage from "./pages/BrowsePage";
+import BookPage from "./pages/BookPage";
 
 function App() {
   return (
@@ -24,6 +25,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <BrowsePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/book/:slug"
+            element={
+              <ProtectedRoute>
+                <BookPage />
               </ProtectedRoute>
             }
           />

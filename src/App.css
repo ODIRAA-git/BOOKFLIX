@@ -425,6 +425,32 @@ body.light-mode .dropdown-user-info {
   background-color: #9333EA;
 }
 
+.auth-button-row {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-button-row .auth-button {
+  flex: 1;
+}
+
+.guest-button {
+  background-color: transparent;
+  color: #A855F7;
+  border: 1px solid #A855F7;
+}
+
+.guest-button:hover {
+  background-color: rgba(168, 85, 247, 0.1);
+}
+
+.demo-note {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
 .auth-switch {
   text-align: center;
   color: #d1d5db;

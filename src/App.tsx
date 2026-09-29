@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { supabase } from "./lib/supabase";
 import type { User } from "@supabase/supabase-js";
@@ -210,6 +210,16 @@ function App() {
       setAuthError(null);
       closeModals();
     }
+  };
+
+  // Continue as guest: pre-fill the demo credentials and submit the login form
+  const loginFormRef = useRef<HTMLFormElement>(null);
+  const handleGuestLogin = () => {
+    const form = loginFormRef.current;
+    if (!form) return;
+    (form.elements.namedItem("email") as HTMLInputElement).value = "demo@bookflix.com";
+    (form.elements.namedItem("password") as HTMLInputElement).value = "book023";
+    form.requestSubmit();
   };
 
   // Handle logout
@@ -604,7 +614,7 @@ function App() {
             </button>
             <h2 className="modal-title">Login to Bookflix</h2>
             {authError && <div className="auth-error">{authError}</div>}
-            <form className="auth-form" onSubmit={handleLogin}>
+            <form className="auth-form" onSubmit={handleLogin} ref={loginFormRef}>
               <div className="form-group">
                 <label htmlFor="login-email">Email</label>
                 <input
@@ -634,10 +644,23 @@ function App() {
                   Forgot password?
                 </button>
               </div>
-              <button type="submit" className="auth-button" disabled={loading}>
-                {loading ? "Logging in..." : "Login"}
-              </button>
+              <div className="auth-button-row">
+                <button type="submit" className="auth-button" disabled={loading}>
+                  {loading ? "Logging in..." : "Login"}
+                </button>
+                <button
+                  type="button"
+                  className="auth-button guest-button"
+                  onClick={handleGuestLogin}
+                  disabled={loading}
+                >
+                  Continue as Guest
+                </button>
+              </div>
             </form>
+            <p className="demo-note">
+              Recruiter or reviewer? Use demo@bookflix.com / book023 to log in.
+            </p>
             <p className="auth-switch">
               Don't have an account?{" "}
               <button onClick={openSignup} className="switch-link">

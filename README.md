@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# Bookflix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Netflix-style book discovery app. Browse novels by genre in auto-scrolling rows, read a prologue before you commit, and save favourites to a personal wishlist that syncs to your account.
 
-Currently, two official plugins are available:
+**Live demo: [bookfliix.netlify.app](https://bookfliix.netlify.app/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> **Try it without signing up:** open the login dialog and click **Continue as Guest**, or log in with `demo@bookflix.com` / `book023`.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Genre rows**: Fantasy, Fiction, Romance, Mystery & Thriller, Horror, Poetry, plus a Recommended row, shown as continuously scrolling carousels
+- **Book details**: cover, rating and prologue in a modal
+- **Authentication**: email/password sign-up and login via Supabase Auth, with a one-click guest login
+- **Wishlist**: add and remove books; stored per user in a Supabase Postgres table
+- **Genre search**: search from the navbar, which jumps to and highlights the matching row
+- **Dark/light mode**: theme choice is remembered between visits
+- **Responsive layout**: works on desktop and mobile
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Area      | Choice                                   |
+| --------- | ---------------------------------------- |
+| UI        | React 19, TypeScript                     |
+| Build     | Vite                                     |
+| Backend   | Supabase (Auth + Postgres)               |
+| Styling   | Plain CSS with light/dark theme classes  |
+| Hosting   | Netlify (SPA redirects in `public/_redirects`) |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── main.tsx                 # App entry point
+├── App.tsx                  # Root component
+├── pages/
+│   └── HomePage.tsx         # Page layout and UI state (modals, search, dropdown)
+├── components/
+│   ├── common/Modal.tsx     # Reusable modal shell
+│   ├── layout/              # Navbar, Footer
+│   ├── home/                # HeroSection, BookRow, BookCard
+│   ├── auth/                # LoginModal, SignupModal
+│   ├── books/               # BookDetailsModal
+│   └── profile/             # ProfileModal (user info + wishlist)
+├── hooks/
+│   ├── useAuth.ts           # Session tracking, sign up / in / out
+│   ├── useWishlist.ts       # Wishlist fetch, add, remove (Supabase)
+│   └── useTheme.ts          # Dark/light mode with persistence
+├── data/books.ts            # Book catalogue and genre rows
+├── lib/supabase.ts          # Supabase client
+├── types/book.ts            # Shared TypeScript types
+├── styles/                  # Global and component styles
+└── assets/                  # Book covers, grouped by genre
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Requires Node.js 20+.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/ODIRAA-git/BOOKFLIX.git
+cd BOOKFLIX
+npm install
+npm run dev
 ```
+
+Then open http://localhost:5173.
+
+### Scripts
+
+| Command           | What it does                          |
+| ----------------- | ------------------------------------- |
+| `npm run dev`     | Start the dev server with hot reload  |
+| `npm run build`   | Type-check and build for production   |
+| `npm run preview` | Serve the production build locally    |
+| `npm run lint`    | Run ESLint                            |
+
+## Database
+
+Wishlists are stored in a `wishlists` table in Supabase, with one row per saved book: `user_id`, `book_title`, `book_image`, `book_prologue` and `book_rating`.

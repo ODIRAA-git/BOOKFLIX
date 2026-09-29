@@ -4,7 +4,7 @@ A Netflix-style book discovery app. Browse novels by genre in auto-scrolling row
 
 **Live demo: [bookfliix.netlify.app](https://bookfliix.netlify.app/)**
 
-> **Try it without signing up:** click **Try the demo account** on the homepage, or sign in with `demo@bookflix.com` / `book023`.
+> **Try it without signing up:** click **Try the demo account** on the homepage, or sign in with `demo@bookflix.com` / `book0123`.
 
 ## Features
 

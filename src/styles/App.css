@@ -924,30 +924,56 @@ body.light-mode .dropdown-user-info {
     font-size: 18px;
   }
 
+  /* Let the book modal scroll on small screens so nothing is cut off */
+  .book-details-modal {
+    width: 92%;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+  }
+
   .book-details-content {
     flex-direction: column;
     gap: 20px;
   }
 
   .book-details-image {
-    width: 100%;
-    height: 350px;
+    width: 160px;
+    height: 240px;
+    margin: 28px auto 0;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
   }
 
   .book-details-info {
-    padding: 20px;
+    padding: 0 20px;
+    gap: 16px;
   }
 
   .book-details-title {
     font-size: 24px;
   }
 
+  /* Keep the actions pinned to the bottom of the modal while the prologue scrolls */
   .book-details-actions {
+    position: sticky;
+    bottom: 0;
     flex-direction: column;
+    gap: 10px;
+    margin: 0 -20px;
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+    background-color: #92487A;
+    box-shadow: 0 -10px 20px -10px rgba(0, 0, 0, 0.4);
+  }
+
+  body.light-mode .book-details-actions {
+    background-color: white;
+    box-shadow: 0 -10px 20px -10px rgba(0, 0, 0, 0.15);
   }
 
   .action-button {
     width: 100%;
+    flex: none;
   }
 
   .profile-container {
@@ -1033,6 +1059,16 @@ body.light-mode .book-details-title {
 
 body.light-mode .book-prologue {
   color: #4b5563;
+}
+
+body.light-mode .action-button.secondary {
+  background-color: #f3f4f6;
+  color: #1a202c;
+  border-color: #d1d5db;
+}
+
+body.light-mode .action-button.secondary:hover {
+  background-color: #e5e7eb;
 }
 
 body.light-mode .profile-overlay {
